@@ -1,7 +1,10 @@
-FROM ubuntu
+# FROM ubuntu
 
-MAINTAINER Moshe
+# MAINTAINER Moshe
 
-RUN apt-get update
+# RUN apt-get update
 
-CMD ["echo", "Hello World"]
+# CMD ["echo", "Hello World"]
+FROM node:16.13.1-alpine
+
+RUN apk add -U subversion
