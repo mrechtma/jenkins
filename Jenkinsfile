@@ -1,6 +1,6 @@
 pipeline {
     agent { 
-        agent {label 'slave'}
+        agent {label 'slave1'}
         dockerfile true 
     }
     stages {
