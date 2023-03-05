@@ -1,4 +1,5 @@
 node (label: 'agent1') {
+     def app
      stage('clone repository') {
           checkout scm  
     }
