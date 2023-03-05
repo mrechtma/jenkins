@@ -1,11 +1,19 @@
-# FROM ubuntu
+FROM node:16
 
-# MAINTAINER Moshe
+# Create app directory
+WORKDIR /usr/src/app
 
-# RUN apt-get update
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
-# CMD ["echo", "Hello World"]
-RUN echo  "start dockerfile"
-FROM node:16.13.1-alpine
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
 
-RUN apk add -U subversion
+# Bundle app source
+COPY . .
+
+EXPOSE 8000
+CMD [ "node", "server.js" ]
