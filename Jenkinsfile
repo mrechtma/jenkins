@@ -5,7 +5,7 @@ node (label: 'agent1') {
     }
           stage('Test Image'){
        app.inside {
-         sh 'echo "TEST PASSED"'
+            sh 'echo "TEST PASSED"'}
       }  
      stage('Build docker Image'){
         docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
