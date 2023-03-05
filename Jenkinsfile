@@ -1,4 +1,4 @@
-node {
+node (label: 'agent1') {
 
     checkout scm
 
