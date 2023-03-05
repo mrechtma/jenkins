@@ -1,7 +1,7 @@
 node (label: 'agent1') {
      def app
      stage('clone repository') {
-          sh 'su -'
+          sh 'su root'
           sh 'apk add docker' 
           checkout scm  
     }
