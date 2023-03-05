@@ -4,7 +4,7 @@ node (label: 'agent1') {
 
     docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
 
-        def customImage = docker.build("mosher55/dockerwebapp")
+        def customImage = docker.build("mosher55/jenkins")
 
         /* Push the container to the custom Registry */
         customImage.push()
