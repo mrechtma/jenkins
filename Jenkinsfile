@@ -1,31 +1,33 @@
-// node (label: 'agent1') {
-//     checkout scm
-//     docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
-
-//         def customImage = docker.build("mosher55/node-app")
-
-//         /* Push the container to the custom Registry */
-//         customImage.push()
-//     }
-// }
-
-node {
-     def app 
+node (label: 'agent1') {
      stage('clone repository') {
-      checkout scm  
+          checkout scm  
     }
-     stage('Build docker Image'){
-      app = docker.build("mosher55/node-app")
+        docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
+
+        def customImage = docker.build("mosher55/node-app")
+
+        /* Push the container to the custom Registry */
+        customImage.push()
     }
-     stage('Test Image'){
-       app.inside {
-         sh 'echo "TEST PASSED"'
-      }  
+}
+
+// node {
+//      def app 
+//      stage('clone repository') {
+//       checkout scm  
+//     }
+//      stage('Build docker Image'){
+//       app = docker.build("mosher55/node-app")
+//     }
+//      stage('Test Image'){
+//        app.inside {
+//          sh 'echo "TEST PASSED"'
+//       }  
     
-     stage('Push Image'){
-       docker.withRegistry('https://registry.hub.docker.com', 'dockerHub')           
-       app.push("${env.BUILD_NUMBER}")            
-       app.push("latest")   
-     }
+//      stage('Push Image'){
+//        docker.withRegistry('https://registry.hub.docker.com', 'dockerHub')           
+//        app.push("${env.BUILD_NUMBER}")            
+//        app.push("latest")   
+//      }
           
-     }
+//      }
