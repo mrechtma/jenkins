@@ -1,18 +1,20 @@
 pipeline {
-  agent {
-    dockerfile {
-      filename 'Dockerfile'
-      label 'slave_node'
-    }
-  }
+	agent none
   stages {
-    stage("example stage") {
-      steps {
-        script {
-          sh 'cat /etc/os-release'
-          sh 'curl --version'
-          sh 'echo Successfully compiled'
+  	stage('Maven Install') {
+    	agent {
+      	docker {
+        	image 'maven:3.5.0'
         }
+      }
+      steps {
+      	sh 'mvn clean install'
+      }
+    }
+    stage('Docker Build') {
+    	agent any
+      steps {
+      	sh 'docker build -t shanem/spring-petclinic:latest .'
       }
     }
   }
