@@ -1,13 +1,11 @@
 pipeline {
-    agent any
-
+    agent {
+        docker { image 'node:16.13.1-alpine' }
+    }
     stages {
-        stage('Build') {
+        stage('Test') {
             steps {
-                script {
-                    def customImage = docker.build("my-custom-image:${env.BUILD_NUMBER}", "-f Dockerfile .")
-                    customImage.push()
-                }
+                sh 'node --version'
             }
         }
     }
