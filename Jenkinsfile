@@ -1,16 +1,14 @@
-#!groovy
 pipeline {
-	agent none
-  stages {
-  	stage('Maven Install') {
-    	agent {
-      	docker {
-        	image 'maven:3.5.0'
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    def customImage = docker.build("my-custom-image:${env.BUILD_NUMBER}", "-f Dockerfile .")
+                    customImage.push()
+                }
+            }
         }
-      }
-      steps {
-      	sh 'mvn clean install'
-      }
     }
-  }
 }
